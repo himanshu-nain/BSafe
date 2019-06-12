@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BSafe</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="default_name">A BSafe User Whom You Know, </string>
+    <string name="default_message"> is in danger and needs your help. Please help her/him out.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="title_activity_settings">Settings</string>
+</resources>
