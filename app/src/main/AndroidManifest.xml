@@ -3,9 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="nain.himanshu.bsafe">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:xlargeScreens="true"
+        android:smallScreens="true"
+        android:requiresSmallestWidthDp="320"/>
 
     <application
         android:allowBackup="true"

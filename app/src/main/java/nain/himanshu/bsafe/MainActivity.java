@@ -1,8 +1,13 @@
 package nain.himanshu.bsafe;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.PermissionChecker;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,8 +16,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
@@ -35,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mPanicButton;
 
+    private boolean permissionChecker(){
+        return Build.VERSION.SDK_INT >= 23 && ((ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PermissionChecker.PERMISSION_DENIED)||(ActivityCompat.checkSelfPermission(this, Manifest.permission_group.LOCATION) == PermissionChecker.PERMISSION_DENIED));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +54,18 @@ public class MainActivity extends AppCompatActivity {
         mPanicButton = findViewById(R.id.panicButton);
         mPanicButton.setOnClickListener(onPanicButtonClickListener);
 
+        if(permissionChecker()){
+            Toast.makeText(this, "Please Grant Permissions for Sending SMS and Getting your Location. If ignored this may lead to random crashes.", Toast.LENGTH_LONG).show();
 
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
 
         Utils.createStickyNotification(this, PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Config.STICKY_NOTIFICATION, true));
     }
-
 
     private View.OnClickListener onPanicButtonClickListener = new View.OnClickListener() {
         @Override
