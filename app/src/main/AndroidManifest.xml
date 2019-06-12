@@ -9,11 +9,13 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <supports-screens
+        android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
-        android:xlargeScreens="true"
-        android:smallScreens="true"
-        android:requiresSmallestWidthDp="320"/>
+        android:requiresSmallestWidthDp="360"
+        android:resizeable="true"
+        android:smallScreens="false"
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
